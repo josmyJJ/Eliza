@@ -24,27 +24,32 @@ public class Main {
         System.out.println("Enter your response here or Q to quit:");
 
         do{
-            String outputStr = "";
-
-            // Read in the user input
             userRespo = keyboardInput.readLine();
-            //System.out.println("Enter your response here or Q to quit:");
+
+            String outputStr = "";
             String[] splitStr = userRespo.split(" ");
+
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("I", "you");
+            map.put("me", "you");
+            map.put("my", "your");
+            map.put("am", "are");
 
             for(int i=0; i<splitStr.length; i++){
                 if(splitStr[i].equalsIgnoreCase("my")){
-                    splitStr[i] = "your";
+                    splitStr[i] = map.get("my");
                 }
                 if(splitStr[i].equalsIgnoreCase("me")){
-                    splitStr[i] = "you";
+                    splitStr[i] = map.get("me");
                 }
                 if(splitStr[i].equalsIgnoreCase("i")){
-                    splitStr[i] = "you";
+                    splitStr[i] = map.get("i");
                 }
                 if(splitStr[i].equalsIgnoreCase("am")){
-                    splitStr[i] = "are";
+                    splitStr[i] = map.get("am");
                 }
             }
+
 
             for(int i=0; i<splitStr.length; i++){
                 outputStr += splitStr[i] + " ";
