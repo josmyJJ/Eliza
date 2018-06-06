@@ -6,24 +6,28 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        Boolean userQuit = true;
-	    String userRespo, outputStr = "";
+         Boolean userQuit = true;
+        String userRespo;
 
-	    String[] hedges = {
-	      "Please tell me more", "Many of my patients tell me the same thing",
+        String[] hedges = {
+                "Please tell me more", "Many of my patients tell me the same thing",
                 "It is getting late, maybe we had better quit"
         };
-	    String[] qualifiers = {
-	            "Why do you say that", "You seem to think that",
+        String[] qualifiers = {
+                "Why do you say that", "You seem to think that",
                 "So, you are concerned that"
         };
-	    
+
         BufferedReader keyboardInput = null;
         keyboardInput = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Good day. What is your problem? ");
         System.out.println("Enter your response here or Q to quit:");
-        userRespo = keyboardInput.readLine();
+
         do{
+            String outputStr = "";
+
+            // Read in the user input
+            userRespo = keyboardInput.readLine();
             //System.out.println("Enter your response here or Q to quit:");
             String[] splitStr = userRespo.split(" ");
 
@@ -50,7 +54,7 @@ public class Main {
             int randQuali = rand.nextInt(qualifiers.length);
             int randHed = rand.nextInt(hedges.length);
 
-            int response = rand.nextInt(2);
+            int response =rand.nextInt(2);
             switch (response){
                 case 0:
                     System.out.println(qualifiers[randQuali] + " " + outputStr + "?");
@@ -59,10 +63,9 @@ public class Main {
                     System.out.println(hedges[randHed]);
                     break;
             }
-            //System.out.println("Q to qit");
-            String quit = keyboardInput.readLine();
-            if(quit.equalsIgnoreCase("q")){
-                System.out.println("goodby");
+
+            if(userRespo.equalsIgnoreCase("q")){
+                System.out.println("Goodby! Thanks for using the program!");
                 userQuit = false;
                 break;
             }
