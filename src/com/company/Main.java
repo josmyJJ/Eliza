@@ -5,61 +5,67 @@ import java.io.BufferedReader;
 import java.io.*;
 
 public class Main {
-
     public static void main(String[] args) throws Exception{
-        // write your code here
-        String userInput;
-        String output = "";
-        boolean keepAsking = true;
-        String[] hedges = {
-                "Please tell me more", "Many of my patients tell me the same thing",
+        Boolean userQuit = true;
+	    String userRespo, outputStr = "";
+
+	    String[] hedges = {
+	      "Please tell me more", "Many of my patients tell me the same thing",
                 "It is getting late, maybe we had better quit"
         };
-        String qualifiers[] = {
-                "Why do you say that", "You seem to think that",
+	    String[] qualifiers = {
+	            "Why do you say that", "You seem to think that",
                 "So, you are concerned that"
         };
-
+	    
+        BufferedReader keyboardInput = null;
+        keyboardInput = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Good day. What is your problem? ");
+        System.out.println("Enter your response here or Q to quit:");
+        userRespo = keyboardInput.readLine();
         do{
-//            System.out.println("Enter a response: ");
-//            userInput = input.next();
-//            userInput += input.nextLine();
-            Scanner input = new Scanner(System.in);
-            BufferedReader keyboardInput = null;
-            keyboardInput = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Please ask your question: ");
-            userInput = keyboardInput.readLine();
+            //System.out.println("Enter your response here or Q to quit:");
+            String[] splitStr = userRespo.split(" ");
 
-            String[] splitStr = userInput.split(" ");
-            for(Integer i=0; i<splitStr.length; i++){
-                if(splitStr[i].equalsIgnoreCase("i")){
-                    splitStr[i] = "you";
+            for(int i=0; i<splitStr.length; i++){
+                if(splitStr[i].equalsIgnoreCase("my")){
+                    splitStr[i] = "your";
                 }
                 if(splitStr[i].equalsIgnoreCase("me")){
                     splitStr[i] = "you";
                 }
-                if(splitStr[i].equalsIgnoreCase("my")){
-                    splitStr[i] = "your";
+                if(splitStr[i].equalsIgnoreCase("i")){
+                    splitStr[i] = "you";
                 }
                 if(splitStr[i].equalsIgnoreCase("am")){
                     splitStr[i] = "are";
                 }
             }
-            // Concatenating the strings together
+
             for(int i=0; i<splitStr.length; i++){
-                output += splitStr[i] + " ";
+                outputStr += splitStr[i] + " ";
             }
+
             Random rand = new Random();
-            int randResp = rand.nextInt(hedges.length);
-            int randQual = rand.nextInt(qualifiers.length);
+            int randQuali = rand.nextInt(qualifiers.length);
+            int randHed = rand.nextInt(hedges.length);
 
-            System.out.println(qualifiers[randQual] + " " +  output);
-
-            System.out.println("Do you want to quit? (Q to quit)");
-            String userRsponse = input.next();
-            if(userRsponse.equalsIgnoreCase("q")){
-                keepAsking = false;
+            int response = rand.nextInt(2);
+            switch (response){
+                case 0:
+                    System.out.println(qualifiers[randQuali] + " " + outputStr + "?");
+                    break;
+                case 1:
+                    System.out.println(hedges[randHed]);
+                    break;
             }
-        }while(keepAsking == true);
+            //System.out.println("Q to qit");
+            String quit = keyboardInput.readLine();
+            if(quit.equalsIgnoreCase("q")){
+                System.out.println("goodby");
+                userQuit = false;
+                break;
+            }
+        }while (userQuit == true);
     }
 }
